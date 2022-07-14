@@ -34,8 +34,8 @@ class AuthTest {
     @Test
     void signupTest() throws Exception {
         SignupRequest user = new SignupRequest();
-        user.setUsername("tapu1");
-        user.setEmail("tapu1@tapu.com");
+        user.setUsername("tapu");
+        user.setEmail("tapu@tapu.com");
         user.setPassword("123456789");
         user.setRole("ADMIN");
 
@@ -44,8 +44,8 @@ class AuthTest {
                         .content(objectMapper.writeValueAsString(user)))
                 .andExpect(status().isOk());
 
-        User userEntity = userRepository.findByUsername("tapu1").get();
-        assertThat(userEntity.getEmail()).isEqualTo("tapu1@tapu.com");
+        User userEntity = userRepository.findByUsername("tapu").get();
+        assertThat(userEntity.getEmail()).isEqualTo("tapu@tapu.com");
     }
 
     @Test

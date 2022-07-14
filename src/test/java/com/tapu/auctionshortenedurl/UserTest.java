@@ -41,21 +41,21 @@ class UserTest {
     @Transactional
     void createUrlTest() throws Exception {
 
-        mockMvc.perform(post("/user/{userId}/url/create",3)
+        mockMvc.perform(post("/user/{userId}/url/create",1)
                         .contentType("application/json")
-                        .content("www.tapu14.com"))
+                        .content("www.tapu.com"))
                 .andExpect(status().isOk());
 
-        User userEntity = userRepository.getReferenceById(3);
-        Url urlEntity = urlRepository.getByLongUrl("www.tapu14.com");
-        assertThat(urlEntity.getLongUrl()).isEqualTo("www.tapu14.com");
+        User userEntity = userRepository.getReferenceById(1);
+        Url urlEntity = urlRepository.getByLongUrl("www.tapu.com");
+        assertThat(urlEntity.getLongUrl()).isEqualTo("www.tapu.com");
         assertThat(userEntity.getUrls().contains(urlEntity)).isTrue();
     }
 
     @Test
     @WithMockUser(username = "tapu", password = "123456789", roles = "ADMIN")
     void getUrlListTest() throws Exception {
-        mockMvc.perform(get("/user/{userId}/url/list",3)
+        mockMvc.perform(get("/user/{userId}/url/list",1)
                         .contentType("application/json"))
                 .andExpect(status().isOk());
     }
@@ -64,7 +64,7 @@ class UserTest {
     @WithMockUser(username = "tapu", password = "123456789", roles = "ADMIN")
     @Transactional
     void getUrlByUserIdAndUrlIdTest() throws Exception {
-        mockMvc.perform(get("/user/{userId}/url/detail/{urlId}",3,30)
+        mockMvc.perform(get("/user/{userId}/url/detail/{urlId}",1,1)
                         .contentType("application/json"))
                 .andExpect(status().isOk());
     }
@@ -72,7 +72,7 @@ class UserTest {
     @Test
     @WithMockUser(username = "tapu", password = "123456789", roles = "ADMIN")
     void removeUrlFromUsersUrlsTest() throws Exception {
-        mockMvc.perform(delete("/user/{userId}/url/detail/{urlId}",3,33)
+        mockMvc.perform(delete("/user/{userId}/url/detail/{urlId}",1,1)
                         .contentType("application/json"))
                 .andExpect(status().isOk());
     }
